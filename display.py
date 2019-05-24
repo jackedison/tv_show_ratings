@@ -72,6 +72,8 @@ def display_data(tv_show, data):
     plt.savefig('{} imbd ratings.png'.format(tv_show))
     plt.show()
 
+    return plt
+
 
 
 if __name__ == "__main__":
