@@ -71,7 +71,7 @@ def display_data(tv_show, data):
     
 
     plt.tight_layout()
-    plt.savefig('{} imbd ratings.png'.format(tv_show))
+    plt.savefig('Ratings/{} imbd ratings.png'.format(tv_show))
 
     return fig, ax, plt
 

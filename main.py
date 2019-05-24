@@ -36,6 +36,7 @@ if __name__ == "__main__":
     tv_show = 'Top Gear'
     tv_show = 'The Office'
     tv_show = 'Westworld'
+    tv_show = 'Game of Thrones'
 
     # Request limit reached for today btw.
 
