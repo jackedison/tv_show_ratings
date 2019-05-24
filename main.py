@@ -1,5 +1,10 @@
 import json  # Used to convert json api to python dict
 
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
+import seaborn as sbs  # Its a wrapper for matplotlib might as well install and make things look nicer
+
 import call_api
 import display
 
@@ -20,12 +25,20 @@ def main(tv_show, refresh_data, display_data):
         dic = read_in_jsons('tv_shows.json', tv_show)
 
     if display_data:
-        display.display_data(tv_show, dic)
+        fig, ax, plt = display.display_data(tv_show, dic)
+        plt.show()
 
 
 if __name__ == "__main__":
     ### ESSENTIAL INPUTS FOR PROGRAM HERE ###
-    tv_show = 'House'
+    tv_show = 'House of Cards'
+    tv_show = 'Friends'
+    tv_show = 'Top Gear'
+    tv_show = 'The Office'
+    tv_show = 'Westworld'
+
+    # Request limit reached for today btw.
+
     display_data = True
     
     
@@ -33,6 +46,8 @@ if __name__ == "__main__":
     refresh_data_master = False
     refresh_data = False
     tv_shows = call_api.TV_Shows()
+    #tv_shows.remove_show(tv_show)
+
     if refresh_data_master or tv_show not in tv_shows.get_show_names():
         refresh_data = True
 

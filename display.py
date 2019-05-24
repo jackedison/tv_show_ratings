@@ -15,7 +15,7 @@ def display_data(tv_show, data):
     min_rating = min(df['imdbRating'])
 
     # Initial plt configs
-    fig, ax = plt.subplots(figsize=(16, 8), )
+    fig, ax = plt.subplots(figsize=(16, 8))
 
     # Plot each season in a loop so they are assigned unique colours
     running_episode = 0
@@ -57,6 +57,8 @@ def display_data(tv_show, data):
     ax.tick_params(which='both', bottom=False, labelbottom=False)
     ax.tick_params(axis='y', which='major', labelsize=14)
     ax.set_yticks([i/10 for i in range(int(min_rating)*10, 101)], minor=True)
+    # Ensure y-axis is integers
+    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
 
     ax.set_facecolor('#fffff9')
 
@@ -70,9 +72,8 @@ def display_data(tv_show, data):
 
     plt.tight_layout()
     plt.savefig('{} imbd ratings.png'.format(tv_show))
-    plt.show()
 
-    return plt
+    return fig, ax, plt
 
 
 

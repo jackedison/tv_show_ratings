@@ -44,8 +44,15 @@ class TV_Shows():
         if self.dic == {}:
             self.read_json()
         names = sorted(list(self.dic.keys()))
-        pprint.pprint(names)
+        print('In current database: {}'.format(names))
         return names
+
+    def remove_show(self, tv_show):
+        self.read_json()
+        if tv_show in self.dic:
+            del(self.dic[tv_show])
+        self.save_json()
+        
     
 
 if __name__ == "__main__":
@@ -57,7 +64,7 @@ if __name__ == "__main__":
 def get_api_data(tv_show, api_key='90b41255', start_season=1, start_episode=1, save_as_json=True):
     '''Gets OMBD api data for TV show and saves to a master JSON
        Note that the free api_key caps at 1000 calls a day'''
-    logging.basicConfig(filename='api_call.log',level=logging.INFO)
+    logging.basicConfig(level=logging.INFO)
 
     # For url encoding space (ASCII 32) becomes 20 in hexa so replace with %20
     tv_show_url = tv_show.replace(' ', '%20')
@@ -74,8 +81,12 @@ def get_api_data(tv_show, api_key='90b41255', start_season=1, start_episode=1, s
     while season != None:
         api = api_format.format(tv_show_url, season, episode, api_key)
         # Open page and read in data using json library to a dict
-        with urllib.request.urlopen(api) as api_page:
-            data = json.load(api_page)
+        
+        try:
+            with urllib.request.urlopen(api) as api_page:
+                data = json.load(api_page)
+        except:
+            raise TimeoutError('Likely daily request limit reached. Check failed API url manually here: {}'.format(api))
 
         # If got a response then store to master dic
         if data['Response'] == 'True':
