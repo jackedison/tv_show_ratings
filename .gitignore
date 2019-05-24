@@ -1,0 +1,8 @@
+# Don't track contents of these folders
+env/
+__pycache__/
+.vscode/
+
+
+# Don't track any files of type
+*.log
