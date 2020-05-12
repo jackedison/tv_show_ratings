@@ -3,3 +3,5 @@
 This repo has code to:
 1. Pull TV Show data from OMDB API
 2. Display data through various functions
+
+Example rating visualisations in Ratings/
